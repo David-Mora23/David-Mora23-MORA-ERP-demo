@@ -186,11 +186,12 @@ def exportar_pdf():
         y -= 0.4 * inch
         c.setFont('Helvetica', 10)
 
+        total_ventas_val = conn.execute("SELECT COALESCE(SUM(total), 0) as t FROM facturas WHERE estado != 'anulada'").fetchone()['t']
         stats = [
             ('Total Productos', conn.execute('SELECT COUNT(*) as c FROM productos').fetchone()['c']),
             ('Total Clientes', conn.execute('SELECT COUNT(*) as c FROM clientes').fetchone()['c']),
             ('Total Empleados', conn.execute('SELECT COUNT(*) as c FROM empleados').fetchone()['c']),
-            ('Total Ventas', f'${conn.execute("SELECT COALESCE(SUM(total),0) as t FROM facturas WHERE estado != \'anulada\'").fetchone()["t"]:.2f}'),
+            ('Total Ventas', f'${total_ventas_val:.2f}'),
         ]
         for label, value in stats:
             c.drawString(1 * inch, y, f'{label}: {value}')
