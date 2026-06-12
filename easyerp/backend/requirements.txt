@@ -1,0 +1,10 @@
+flask
+flask-cors
+flask-jwt-extended
+bcrypt
+python-dotenv
+openpyxl
+reportlab
+openai
+google-genai
+gunicorn

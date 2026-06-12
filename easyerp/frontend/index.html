@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyERP — Dashboard</title>
+    <meta name="description" content="Sistema de Planificación de Recursos Empresariales">
+    <link rel="icon" type="image/png" href="media/favicon.png">
+    <link rel="shortcut icon" href="media/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- SVG Icon Sprites -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <!-- dashboard -->
+    <symbol id="ic-dashboard" viewBox="0 0 24 24">
+        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+    </symbol>
+    <!-- inventory -->
+    <symbol id="ic-inventory" viewBox="0 0 24 24">
+        <path d="M20 6h-2.18c.07-.44.18-.86.18-1.3C18 2.57 15.86.5 13.25.5c-1.5 0-2.82.74-3.65 1.87L9 3.2l-.6-.83C7.57 1.24 6.25.5 4.75.5 2.14.5 0 2.57 0 5c0 .44.11.86.18 1.3H0v2h20V6zm-7.75-3.5c1.24 0 2.25 1 2.25 2.2 0 .44-.18.86-.5 1.3H12V4.7c0-1.2 1.01-2.2 2.25-2.2zM4.75 2.5C6 2.5 7 3.5 7 4.7V6H5.25C4.93 5.56 4.75 5.14 4.75 5c0-1.2 1.01-2.2 2.25-2.2c0 0-2.25 0-2.25 0zM2 20h20v2H2v-2zm0-8h20v7H2v-7z"/>
+    </symbol>
+    <!-- sales -->
+    <symbol id="ic-sales" viewBox="0 0 24 24">
+        <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59L5.25 14c-.2.35-.25.72-.25 1.1C5 16.1 5.9 17 7 17h14v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49C24.5 5.36 24.17 5 23.72 5H5.21l-.94-2H1z"/>
+    </symbol>
+    <!-- purchases -->
+    <symbol id="ic-purchases" viewBox="0 0 24 24">
+        <path d="M19 3H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+    </symbol>
+    <!-- finance -->
+    <symbol id="ic-finance" viewBox="0 0 24 24">
+        <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+    </symbol>
+    <!-- hr -->
+    <symbol id="ic-hr" viewBox="0 0 24 24">
+        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+    </symbol>
+    <!-- reports -->
+    <symbol id="ic-reports" viewBox="0 0 24 24">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5-.19 0-7 0-7 0C8.5 7.57 10.07 6 12 6zm-7 12l3-4 2 2.73L13 13l4 5H5z"/>
+    </symbol>
+    <!-- building (logo) -->
+    <symbol id="ic-building" viewBox="0 0 24 24">
+        <path d="M3 21V9l9-6 9 6v12H3zm2-2h14V10l-7-4.67L5 10v9zm3-2h8v-2H8v2zm0-4h8v-2H8v2z"/>
+    </symbol>
+    <!-- lock -->
+    <symbol id="ic-lock" viewBox="0 0 24 24">
+        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+    </symbol>
+    <!-- file-pdf -->
+    <symbol id="ic-pdf" viewBox="0 0 24 24">
+        <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3H19v1h1.5V11H19v2h-1.5V7h3v1.5zM9 9.5h1v-1H9v1zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm10 5.5h1v-3h-1v3z"/>
+    </symbol>
+    <!-- file-excel -->
+    <symbol id="ic-excel" viewBox="0 0 24 24">
+        <path d="M19.59 3.59A2 2 0 0018.17 3H8c-1.1 0-2 .9-2 2v2H4V5c0-2.21 1.79-4 4-4h10.17a2 2 0 011.41.59l2.83 2.83A2 2 0 0123 5.83V19a2 2 0 01-2 2h-2v-2h2V6.83L19.59 3.59zM3 7h11a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V8a1 1 0 011-1zm2 9l1.5-2.25L8 16l1.5-2.25L11 16l-2-3 2-3H9.5L8 12.25 6.5 10H5l2 3-2 3h2z"/>
+    </symbol>
+    <!-- hamburger -->
+    <symbol id="ic-menu" viewBox="0 0 24 24">
+        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+    </symbol>
+    <!-- logout -->
+    <symbol id="ic-logout" viewBox="0 0 24 24">
+        <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+    </symbol>
+    <symbol id="ic-audit" viewBox="0 0 24 24">
+        <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 9h-5v5h5v-5zm-3-7v5h5l-5-5zM4 4v2h16V4H4zm0 4v2h10V8H4zm0 4v2h8v-2H4z"/>
+    </symbol>
+    <!-- users -->
+    <symbol id="ic-users" viewBox="0 0 24 24">
+        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+    </symbol>
+    <symbol id="ic-chat" viewBox="0 0 24 24">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+    </symbol>
+    <symbol id="ic-send" viewBox="0 0 24 24">
+        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+    </symbol>
+    <symbol id="ic-clear" viewBox="0 0 24 24">
+        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+    </symbol>
+    <symbol id="ic-sparkle" viewBox="0 0 24 24">
+        <path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/>
+    </symbol>
+</svg>
+
+<div class="app-layout">
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <div class="brand-logo">
+                    <svg><use href="#ic-building"/></svg>
+                </div>
+                <div>
+                    <h2>EasyERP</h2>
+                    <small>v1.0</small>
+                </div>
+            </div>
+            <div class="rol-pill">
+                <span class="rol-dot" id="sidebar-rol-dot"></span>
+                <span id="sidebar-rol-text">Cargando</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav" id="sidebar-nav">
+            <div class="nav-section">Principal</div>
+            <button class="nav-link active" data-section="dashboard" data-roles="Admin,Gerente,Vendedor,Contador">
+                <svg class="nav-icon"><use href="#ic-dashboard"/></svg>
+                Dashboard
+            </button>
+
+            <div class="nav-section">Módulos</div>
+            <button class="nav-link" data-section="inventario" data-roles="Admin,Gerente,Vendedor">
+                <svg class="nav-icon"><use href="#ic-inventory"/></svg>
+                Inventario
+            </button>
+            <button class="nav-link" data-section="ventas" data-roles="Admin,Gerente,Vendedor">
+                <svg class="nav-icon"><use href="#ic-sales"/></svg>
+                Ventas
+            </button>
+            <button class="nav-link" data-section="compras" data-roles="Admin,Gerente">
+                <svg class="nav-icon"><use href="#ic-purchases"/></svg>
+                Compras
+            </button>
+            <button class="nav-link" data-section="finanzas" data-roles="Admin,Gerente,Contador">
+                <svg class="nav-icon"><use href="#ic-finance"/></svg>
+                Finanzas
+            </button>
+            <button class="nav-link" data-section="rrhh" data-roles="Admin,Gerente">
+                <svg class="nav-icon"><use href="#ic-hr"/></svg>
+                Recursos Humanos
+            </button>
+
+            <div class="nav-section">Administración</div>
+            <button class="nav-link" data-section="usuarios" data-roles="Admin">
+                <svg class="nav-icon"><use href="#ic-users"/></svg>
+                Usuarios
+            </button>
+            <button class="nav-link" data-section="auditoria" data-roles="Admin">
+                <svg class="nav-icon"><use href="#ic-audit"/></svg>
+                Auditoría
+            </button>
+
+            <div class="nav-section">Reportes</div>
+            <button class="nav-link" data-section="reportes" data-roles="Admin,Gerente,Contador">
+                <svg class="nav-icon"><use href="#ic-reports"/></svg>
+                Exportar Reportes
+            </button>
+        </nav>
+    </aside>
+
+    <!-- ═══ MAIN ═══ -->
+    <div class="main-content">
+
+        <header class="topbar">
+            <div style="display:flex;align-items:center;gap:0.75rem">
+                <button class="menu-toggle" id="menu-toggle">
+                    <svg width="16" height="16"><use href="#ic-menu"/></svg>
+                </button>
+                <h1 id="page-title">Dashboard</h1>
+            </div>
+            <div class="user-info">
+                <span class="user-email" id="user-email"></span>
+                <span class="user-badge" id="user-rol"></span>
+                <button class="btn btn-ghost btn-sm" onclick="Auth.logout()" title="Cerrar sesión">
+                    <svg width="15" height="15"><use href="#ic-logout"/></svg>
+                    Salir
+                </button>
+            </div>
+        </header>
+
+        <div class="content-area">
+
+            <!-- ── DASHBOARD ── -->
+            <section id="section-dashboard" class="section active">
+                <div class="page-hero">
+                    <div class="page-hero-text">
+                        <span class="page-hero-kicker">Panel central</span>
+                        <h2>Vista general del negocio</h2>
+                        <p>KPIs, tendencias y estado de los módulos del ERP en un solo lugar.</p>
+                    </div>
+                    <div class="page-hero-badge">
+                        <svg width="14" height="14"><use href="#ic-sparkle"/></svg>
+                        IA integrada
+                    </div>
+                </div>
+
+                <div id="kpi-grid" class="kpi-grid"></div>
+
+                <div class="card card-flat">
+                    <div class="card-header">
+                        <h3>Mapa de módulos ERP</h3>
+                        <span class="card-meta">Cobertura funcional del sistema</span>
+                    </div>
+                    <div id="erp-modules-map" class="modules-grid"></div>
+                </div>
+
+                <div class="dashboard-charts">
+                    <div class="card">
+                        <div class="card-header"><h3>Ventas por mes</h3></div>
+                        <div id="chart-ventas" class="chart-container"></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><h3>Productos por categoría</h3></div>
+                        <div id="chart-categorias" class="chart-container"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3>Productos más vendidos</h3></div>
+                    <div id="top-productos"></div>
+                </div>
+            </section>
+
+            <!-- ── INVENTARIO ── -->
+            <section id="section-inventario" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Productos</h3>
+                        <button class="btn btn-primary btn-sm" id="btn-nuevo-producto" onclick="Inventario.showCrearModal()">Nuevo producto</button>
+                    </div>
+                    <div id="productos-table"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3>Alertas de stock</h3></div>
+                    <div id="alertas-stock"></div>
+                </div>
+            </section>
+
+            <!-- ── VENTAS ── -->
+            <section id="section-ventas" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Clientes</h3>
+                        <button class="btn btn-primary btn-sm" id="btn-nuevo-cliente" onclick="Ventas.showCrearCliente()">Nuevo cliente</button>
+                    </div>
+                    <div id="clientes-table"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Facturas</h3>
+                        <button class="btn btn-primary btn-sm" id="btn-nueva-factura" onclick="Ventas.showCrearFactura()">Nueva factura</button>
+                    </div>
+                    <div id="facturas-table"></div>
+                </div>
+            </section>
+
+            <!-- ── COMPRAS ── -->
+            <section id="section-compras" class="section">
+                <div class="card">
+                    <div class="card-header"><h3>Proveedores</h3></div>
+                    <div id="proveedores-table"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Órdenes de compra</h3>
+                        <button class="btn btn-primary btn-sm" id="btn-nueva-compra" onclick="Compras.showCrearCompra()">Nueva compra</button>
+                    </div>
+                    <div id="ordenes-table"></div>
+                </div>
+            </section>
+
+            <!-- ── FINANZAS ── -->
+            <section id="section-finanzas" class="section">
+                <div id="resumen-financiero"></div>
+                <div class="card card-flat" id="finanzas-flujo-wrap">
+                    <div id="finanzas-flujo"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3>Cuentas contables</h3></div>
+                    <div id="finanzas-cuentas"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Transacciones</h3>
+                        <button class="btn btn-primary btn-sm" id="btn-nueva-transaccion" onclick="Finanzas.showCrearModal()">Nueva transacción</button>
+                    </div>
+                    <div id="transacciones-table"></div>
+                </div>
+            </section>
+
+            <!-- ── RRHH ── -->
+            <section id="section-rrhh" class="section">
+                <div id="rrhh-resumen"></div>
+
+                <!-- Tabs de RRHH -->
+                <div class="rrhh-tabs">
+                    <button class="rrhh-tab-btn active" data-tab="empleados" onclick="RRHH.switchTab('empleados')">
+                        <svg width="14" height="14"><use href="#ic-hr"/></svg> Empleados
+                    </button>
+                    <button class="rrhh-tab-btn" data-tab="asistencia" onclick="RRHH.switchTab('asistencia')">
+                        📋 Asistencia
+                    </button>
+                    <button class="rrhh-tab-btn" data-tab="extras" onclick="RRHH.switchTab('extras')">
+                        ⏰ Horas Extras
+                    </button>
+                    <button class="rrhh-tab-btn" data-tab="incidencias" onclick="RRHH.switchTab('incidencias')">
+                        🏥 Incidencias
+                    </button>
+                    <button class="rrhh-tab-btn" data-tab="nomina" onclick="RRHH.switchTab('nomina')">
+                        💰 Nómina
+                    </button>
+                </div>
+
+                <!-- Panel: Empleados -->
+                <div id="rrhh-panel-empleados" class="rrhh-tab-panel active">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Empleados</h3>
+                            <button class="btn btn-primary btn-sm" onclick="RRHH.showCrearModal()">Nuevo empleado</button>
+                        </div>
+                        <div id="empleados-table"></div>
+                    </div>
+                </div>
+
+                <!-- Panel: Asistencia -->
+                <div id="rrhh-panel-asistencia" class="rrhh-tab-panel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Registro de Asistencia</h3>
+                        </div>
+                        <div id="asistencia-table"></div>
+                    </div>
+                </div>
+
+                <!-- Panel: Horas Extras -->
+                <div id="rrhh-panel-extras" class="rrhh-tab-panel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Horas Extras</h3>
+                            <button class="btn btn-primary btn-sm" onclick="RRHH.showRegistrarExtrasModal()">Registrar horas extras</button>
+                        </div>
+                        <div id="horas-extras-table"></div>
+                    </div>
+                </div>
+
+                <!-- Panel: Incidencias -->
+                <div id="rrhh-panel-incidencias" class="rrhh-tab-panel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Incidencias</h3>
+                            <button class="btn btn-primary btn-sm" onclick="RRHH.showRegistrarIncidenciaModal()">Nueva incidencia</button>
+                        </div>
+                        <div id="incidencias-table"></div>
+                    </div>
+                </div>
+
+                <!-- Panel: Nómina -->
+                <div id="rrhh-panel-nomina" class="rrhh-tab-panel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Nómina</h3>
+                            <div style="display:flex;gap:0.5rem;align-items:center">
+                                <input type="month" id="nomina-periodo-filter" class="form-control" style="width:auto;height:32px;font-size:0.8rem" onchange="RRHH.loadNomina()">
+                                <button class="btn btn-sm btn-ghost" onclick="RRHH.pagarPeriodo()" title="Pagar todo el periodo">Pagar periodo</button>
+                                <button class="btn btn-primary btn-sm" onclick="RRHH.showGenerarNominaModal()">Generar nómina</button>
+                            </div>
+                        </div>
+                        <div id="nomina-totals"></div>
+                        <div id="nomina-table"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── USUARIOS (Admin) ── -->
+            <section id="section-usuarios" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Usuarios del sistema</h3>
+                        <button class="btn btn-primary btn-sm" onclick="Usuarios.showCrearModal()">Nuevo usuario</button>
+                    </div>
+                    <p style="padding:0 1.25rem 0.75rem;color:var(--text-muted);font-size:0.85rem;margin:0">
+                        Solo el administrador puede crear y modificar cuentas de acceso al ERP.
+                    </p>
+                    <div id="usuarios-table"></div>
+                </div>
+            </section>
+
+            <!-- ── AUDITORÍA (Admin) ── -->
+            <section id="section-auditoria" class="section">
+                <div class="page-hero page-hero-compact">
+                    <div class="page-hero-text">
+                        <span class="page-hero-kicker">Administración</span>
+                        <h2>Auditoría del sistema</h2>
+                        <p>Registro de inicios de sesión, cambios en módulos y acciones de usuarios.</p>
+                    </div>
+                </div>
+                <div id="auditoria-stats"></div>
+                <div class="card">
+                    <div class="card-header"><h3>Filtros</h3></div>
+                    <div class="audit-filters">
+                        <input type="text" id="audit-filtro-accion" class="form-control" placeholder="Acción (LOGIN, FACTURA_CREADA...)">
+                        <input type="date" id="audit-filtro-desde" class="form-control">
+                        <input type="date" id="audit-filtro-hasta" class="form-control">
+                        <button class="btn btn-primary btn-sm" onclick="Auditoria.buscar()">Buscar</button>
+                        <button class="btn btn-ghost btn-sm" onclick="Auditoria.limpiarFiltros()">Limpiar</button>
+                    </div>
+                    <div id="auditoria-acciones" class="audit-chips"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3>Registro de actividad</h3></div>
+                    <div id="auditoria-table"></div>
+                </div>
+            </section>
+
+            <!-- ── REPORTES ── -->
+            <section id="section-reportes" class="section">
+                <div class="access-banner" id="reportes-banner">
+                    <div class="banner-icon">
+                        <svg><use href="#ic-reports"/></svg>
+                    </div>
+                    <div>
+                        <strong id="rep-banner-title">Centro de reportes</strong>
+                        <span id="rep-banner-desc">Exporta datos de los módulos disponibles para tu rol.</span>
+                    </div>
+                </div>
+                <div id="reportes-contenido" class="reportes-grid"></div>
+            </section>
+
+        </div><!-- /content-area -->
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <span>EasyERP v1.0 &nbsp;&middot;&nbsp; &copy; 2026</span>
+            <span>Desarrollado por <strong>@davidmora23_</strong></span>
+        </footer>
+
+    </div><!-- /main-content -->
+</div><!-- /app-layout -->
+
+<!-- ═══ CHATBOT WIDGET ═══ -->
+<div id="chatbot-widget">
+    <button class="chatbot-toggle" id="chatbot-toggle" title="Asistente IA">
+        <svg class="chatbot-icon-chat" width="24" height="24"><use href="#ic-chat"/></svg>
+        <svg class="chatbot-icon-close" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+        <span class="chatbot-pulse"></span>
+    </button>
+
+    <div class="chatbot-panel" id="chatbot-panel">
+        <div class="chatbot-header">
+            <div class="chatbot-header-info">
+                <div class="chatbot-avatar">
+                    <svg width="16" height="16"><use href="#ic-sparkle"/></svg>
+                </div>
+                <div>
+                    <strong>ERP Assistant</strong>
+                    <span class="chatbot-status" id="chat-provider-label">Auto</span>
+                </div>
+            </div>
+            <div class="chatbot-header-actions">
+                <select id="chat-provider" class="chat-provider-select" title="Cambiar API de IA">
+                    <option value="auto">Auto</option>
+                    <option value="gemini">Gemini</option>
+                    <option value="openai">ChatGPT</option>
+                </select>
+                <button class="chatbot-header-btn" id="chatbot-settings-toggle" title="Configurar API Keys">⚙️</button>
+                <button class="chatbot-header-btn" onclick="Chatbot.clearHistory()" title="Limpiar historial">
+                    <svg width="14" height="14"><use href="#ic-clear"/></svg>
+                </button>
+                <button class="chatbot-header-btn" id="chatbot-close" title="Cerrar">
+                    <svg width="14" height="14" viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Panel de configuración de API Keys -->
+        <div id="chatbot-settings-drawer" style="display: none; padding: 0.75rem; background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-size: 0.8rem;">
+            <div style="margin-bottom: 0.5rem;">
+                <label style="display: block; font-weight: 600; margin-bottom: 0.25rem; color: #334155;">Gemini API Key:</label>
+                <input type="password" id="chatbot-gemini-key" class="form-control" style="font-size: 0.75rem; padding: 0.25rem 0.5rem; height: auto;" placeholder="AIzaSy...">
+            </div>
+            <div style="margin-bottom: 0.25rem;">
+                <label style="display: block; font-weight: 600; margin-bottom: 0.25rem; color: #334155;">OpenAI API Key (ChatGPT):</label>
+                <input type="password" id="chatbot-openai-key" class="form-control" style="font-size: 0.75rem; padding: 0.25rem 0.5rem; height: auto;" placeholder="sk-proj-...">
+            </div>
+            <small style="color: #64748b; display: block; margin-top: 0.4rem; font-size: 0.7rem; line-height: 1.2;">
+                * Las claves se guardan localmente en tu navegador y no se envían a ningún servidor externo aparte de las APIs oficiales.
+            </small>
+        </div>
+
+        <div class="chat-messages" id="chat-messages"></div>
+
+        <div class="chat-input-bar">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Escribe tu pregunta..." autocomplete="off">
+            <button class="chat-send-btn" id="chat-send" title="Enviar">
+                <svg width="16" height="16"><use href="#ic-send"/></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ MODALES ═══ -->
+<div class="modal-overlay" id="modal-producto">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Nuevo producto</h3>
+            <button class="modal-close" onclick="Utils.closeModal('modal-producto')">&times;</button>
+        </div>
+        <form id="producto-form" onsubmit="Inventario.crearProducto(event)">
+            <div class="form-row">
+                <div class="form-group"><label>Código</label><input name="codigo" class="form-control" required></div>
+                <div class="form-group"><label>Nombre</label><input name="nombre" class="form-control" required></div>
+            </div>
+            <div class="form-group"><label>Descripción</label><input name="descripcion" class="form-control"></div>
+            <div class="form-row">
+                <div class="form-group"><label>Precio costo</label><input name="precio_costo" type="number" step="0.01" class="form-control" required min="0"></div>
+                <div class="form-group"><label>Precio venta</label><input name="precio_venta" type="number" step="0.01" class="form-control" required min="0"></div>
+                <div class="form-group"><label>Stock</label><input name="stock" type="number" class="form-control" value="0" min="0"></div>
+                <div class="form-group"><label>Categoría</label><input name="categoria" class="form-control" value="General"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-cliente">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Nuevo cliente</h3>
+            <button class="modal-close" onclick="Utils.closeModal('modal-cliente')">&times;</button>
+        </div>
+        <form id="cliente-form" onsubmit="Ventas.crearCliente(event)">
+            <div class="form-group"><label>Nombre</label><input name="nombre" class="form-control" required></div>
+            <div class="form-row">
+                <div class="form-group"><label>Email</label><input name="email" type="email" class="form-control"></div>
+                <div class="form-group"><label>Teléfono</label><input name="telefono" class="form-control"></div>
+            </div>
+            <div class="form-group"><label>Dirección</label><input name="direccion" class="form-control"></div>
+            <div class="form-group"><label>RUC</label><input name="ruc" class="form-control"></div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-factura">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Nueva factura</h3>
+            <button class="modal-close" onclick="Utils.closeModal('modal-factura')">&times;</button>
+        </div>
+        <form id="factura-form" onsubmit="Ventas.crearFactura(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Cliente</label>
+                    <select name="cliente_id" id="factura-cliente" class="form-control" required></select>
+                </div>
+                <div class="form-group"><label>Fecha</label><input name="fecha" type="date" class="form-control" min="2000-01-01" max="2099-12-31"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>ID Producto</label><input name="producto_id" type="number" class="form-control" required></div>
+                <div class="form-group"><label>Cantidad</label><input name="cantidad" type="number" class="form-control" required min="1"></div>
+                <div class="form-group"><label>Precio unitario</label><input name="precio_unitario" type="number" step="0.01" class="form-control" required min="0"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear factura</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-transaccion">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Nueva transacción</h3>
+            <button class="modal-close" onclick="Utils.closeModal('modal-transaccion')">&times;</button>
+        </div>
+        <form id="transaccion-form" onsubmit="Finanzas.crearTransaccion(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select name="tipo" class="form-control" required>
+                        <option value="ingreso">Ingreso</option>
+                        <option value="egreso">Egreso</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Monto</label><input name="monto" type="number" step="0.01" class="form-control" required min="0.01"></div>
+                <div class="form-group"><label>Fecha</label><input name="fecha" id="trans-fecha" type="date" class="form-control" required min="2000-01-01" max="2099-12-31"></div>
+            </div>
+            <div class="form-group"><label>Descripción</label><input name="descripcion" class="form-control" required></div>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-usuario">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="usuario-modal-title">Nuevo usuario</h3>
+            <button class="modal-close" onclick="Utils.closeModal('modal-usuario')">&times;</button>
+        </div>
+        <form id="usuario-form" onsubmit="Usuarios.guardar(event)">
+            <div class="form-group">
+                <label>Email</label>
+                <input name="email" type="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Rol</label>
+                <select name="rol" id="usuario-rol-select" class="form-control" required>
+                    <option value="Gerente">Gerente</option>
+                    <option value="Vendedor">Vendedor</option>
+                    <option value="Contador">Contador</option>
+                </select>
+                <small style="color:var(--text-muted)">Solo existe un administrador del sistema.</small>
+            </div>
+            <div class="form-group" id="usuario-password-group">
+                <label>Contraseña</label>
+                <input name="password" id="usuario-password" type="password" class="form-control" minlength="6">
+                <small id="usuario-password-hint" style="color:var(--text-muted)">Mínimo 6 caracteres</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-empleado">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Nuevo empleado</h3>
+            <button class="modal-close" onclick="Utils.closeModal('modal-empleado')">&times;</button>
+        </div>
+        <form id="empleado-form" onsubmit="RRHH.guardarEmpleado(event)">
+            <div class="form-row">
+                <div class="form-group"><label>Nombre completo</label><input name="nombre" class="form-control" required></div>
+                <div class="form-group"><label>Cédula</label><input name="cedula" class="form-control" placeholder="001-1234567-8"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Email</label><input name="email" type="email" class="form-control"></div>
+                <div class="form-group">
+                    <label>Puesto</label>
+                    <input name="puesto" id="empleado-puesto" list="puestos-list" class="form-control" required oninput="RRHH.autoFillSalario(this.value)">
+                    <datalist id="puestos-list">
+                        <option value="Gerente General">
+                        <option value="Gerente">
+                        <option value="Vendedor Senior">
+                        <option value="Vendedor Junior">
+                        <option value="Vendedor">
+                        <option value="Contadora">
+                        <option value="Contador">
+                        <option value="Almacenero">
+                        <option value="Asistente RRHH">
+                        <option value="Operario">
+                    </datalist>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Departamento</label>
+                    <select name="departamento" class="form-control">
+                        <option value="General">General</option>
+                        <option value="Administración">Administración</option>
+                        <option value="Ventas">Ventas</option>
+                        <option value="Finanzas">Finanzas</option>
+                        <option value="Almacén">Almacén</option>
+                        <option value="RRHH">RRHH</option>
+                        <option value="Operaciones">Operaciones</option>
+                        <option value="TI">Tecnología</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Tipo contrato</label>
+                    <select name="tipo_contrato" class="form-control">
+                        <option value="fijo">Fijo</option>
+                        <option value="temporal">Temporal</option>
+                        <option value="medio_tiempo">Medio Tiempo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Horas/semana</label><input name="horas_semanales" type="number" class="form-control" value="44" min="1" max="60"></div>
+                <div class="form-group"><label>Salario mensual</label><input name="salario" type="number" step="0.01" class="form-control" required min="0"></div>
+                <div class="form-group"><label>Fecha ingreso</label><input name="fecha_ingreso" type="date" class="form-control" required min="2000-01-01" max="2099-12-31"></div>
+                <div class="form-group"><label>Estado</label>
+                    <select name="estado" class="form-control">
+                        <option value="activo">Activo</option>
+                        <option value="inactivo">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Horas Extras -->
+<div class="modal-overlay" id="modal-horas-extras">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Registrar horas extras</h3>
+            <button class="modal-close" onclick="Utils.closeModal('modal-horas-extras')">&times;</button>
+        </div>
+        <form id="horas-extras-form" onsubmit="RRHH.guardarHorasExtras(event)">
+            <div class="form-row">
+                <div class="form-group"><label>Empleado</label>
+                    <select name="empleado_id" id="he-empleado-select" class="form-control" required></select>
+                </div>
+                <div class="form-group"><label>Fecha</label><input name="fecha" type="date" class="form-control" required min="2000-01-01" max="2099-12-31"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Horas</label><input name="horas" type="number" step="0.5" min="0.5" class="form-control" required></div>
+                <div class="form-group"><label>Tipo</label>
+                    <select name="tipo" class="form-control">
+                        <option value="normal">Normal (1.5x)</option>
+                        <option value="doble">Doble (2x)</option>
+                        <option value="triple">Triple (3x)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group"><label>Observación</label><input name="observacion" class="form-control" placeholder="Motivo de las horas extras"></div>
+            <div class="form-group"><label class="checkbox-label"><input type="checkbox" name="aprobado"> Aprobar inmediatamente</label></div>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Incidencia -->
+<div class="modal-overlay" id="modal-incidencia">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Nueva incidencia</h3>
+            <button class="modal-close" onclick="Utils.closeModal('modal-incidencia')">&times;</button>
+        </div>
+        <form id="incidencia-form" onsubmit="RRHH.guardarIncidencia(event)">
+            <div class="form-row">
+                <div class="form-group"><label>Empleado</label>
+                    <select name="empleado_id" id="inc-empleado-select" class="form-control" required></select>
+                </div>
+                <div class="form-group"><label>Fecha</label><input name="fecha" type="date" class="form-control" required min="2000-01-01" max="2099-12-31"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Tipo</label>
+                    <select name="tipo" class="form-control" required>
+                        <option value="medica">🏥 Médica</option>
+                        <option value="personal">👤 Personal</option>
+                        <option value="disciplinaria">⚠️ Disciplinaria</option>
+                        <option value="accidente">🚨 Accidente laboral</option>
+                        <option value="otra">📋 Otra</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Días de ausencia</label><input name="dias_ausencia" type="number" min="0" class="form-control" value="0"></div>
+            </div>
+            <div class="form-group"><label>Descripción</label><textarea name="descripcion" class="form-control" rows="3" required placeholder="Describe la incidencia en detalle..."></textarea></div>
+            <div class="form-row">
+                <div class="form-group"><label class="checkbox-label"><input type="checkbox" name="justificada"> Justificada</label></div>
+                <div class="form-group"><label>Documento soporte</label><input name="documento_soporte" class="form-control" placeholder="Nombre del archivo (ej: certificado.pdf)"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Generar Nómina -->
+<div class="modal-overlay" id="modal-generar-nomina">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Generar nómina del periodo</h3>
+            <button class="modal-close" onclick="Utils.closeModal('modal-generar-nomina')">&times;</button>
+        </div>
+        <form id="generar-nomina-form" onsubmit="RRHH.generarNomina(event)">
+            <div class="form-group">
+                <label>Periodo (mes)</label>
+                <input name="periodo" id="generar-nomina-periodo" type="month" class="form-control" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Bonificaciones extras ($)</label><input name="bonificaciones" type="number" step="0.01" class="form-control" value="0" min="0"></div>
+                <div class="form-group"><label>Otras deducciones ($)</label><input name="otras_deducciones" type="number" step="0.01" class="form-control" value="0" min="0"></div>
+            </div>
+            <div class="nomina-info-box">
+                <strong>Cálculos automáticos incluidos:</strong>
+                <ul>
+                    <li>✅ Horas extras aprobadas del periodo</li>
+                    <li>✅ Seguro Social (SFS): 3.04%</li>
+                    <li>✅ Fondo de Pensión (AFP): 2.87%</li>
+                    <li>✅ ISR según escala</li>
+                    <li>✅ Descuento por faltas injustificadas</li>
+                </ul>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%">Generar nómina para todos los empleados activos</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-compra">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Nueva orden de compra</h3>
+            <button class="modal-close" onclick="Utils.closeModal('modal-compra')">&times;</button>
+        </div>
+        <form id="compra-form" onsubmit="Compras.crearCompra(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Proveedor</label>
+                    <select name="proveedor_id" id="compra-proveedor" class="form-control" required></select>
+                </div>
+                <div class="form-group"><label>Fecha</label><input name="fecha" type="date" class="form-control" min="2000-01-01" max="2099-12-31"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Producto</label>
+                    <select name="producto_id" id="compra-producto" class="form-control" required></select>
+                </div>
+                <div class="form-group"><label>Cantidad</label><input name="cantidad" type="number" class="form-control" required min="1" value="1"></div>
+                <div class="form-group"><label>Precio unitario (Costo)</label><input name="precio_unitario" type="number" step="0.01" class="form-control" required></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear compra</button>
+        </form>
+    </div>
+</div>
+
+<!-- ═══ LIBRERÍAS EXTERNAS (CDN) ═══ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script src="js/utils.js"></script>
+<script src="js/chatbot.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/usuarios.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/inventario.js"></script>
+<script src="js/ventas.js"></script>
+<script src="js/finanzas.js"></script>
+<script src="js/rrhh.js"></script>
+<script src="js/auditoria.js"></script>
+<script>
+// ════════════════════════════════════════════
+//  CONFIGURACIÓN DE ROLES
+// ════════════════════════════════════════════
+const ROL_CONFIG = {
+    'Admin': {
+        dot: '#111318',
+        modulos: ['dashboard','inventario','ventas','compras','finanzas','rrhh','usuarios','auditoria','reportes'],
+        reportes: ['resumen','inventario','ventas','finanzas','empleados','nomina'],
+        bannerTitle: 'Acceso total — Administrador',
+        bannerDesc: 'Visualiza y exporta reportes de todos los módulos del sistema.',
+        puedeEditar: true
+    },
+    'Gerente': {
+        dot: '#2563EB',
+        modulos: ['dashboard','inventario','ventas','compras','finanzas','rrhh','reportes'],
+        reportes: ['resumen','inventario','ventas','finanzas','empleados','nomina'],
+        bannerTitle: 'Panel gerencial — Reportes de todos los módulos',
+        bannerDesc: 'Como Gerente puedes consultar y exportar reportes de cualquier módulo.',
+        puedeEditar: false
+    },
+    'Vendedor': {
+        dot: '#16A34A',
+        modulos: ['dashboard','inventario','ventas'],
+        reportes: ['ventas'],
+        bannerTitle: 'Reportes de ventas',
+        bannerDesc: 'Puedes exportar los reportes del módulo de ventas.',
+        puedeEditar: true
+    },
+    'Contador': {
+        dot: '#D97706',
+        modulos: ['dashboard','finanzas','reportes'],
+        reportes: ['resumen','finanzas'],
+        bannerTitle: 'Reportes financieros',
+        bannerDesc: 'Acceso a reportes del módulo de finanzas y resumen general.',
+        puedeEditar: true
+    }
+};
+
+const MODULOS_REPORTES = [
+    { id: 'resumen',    titulo: 'Resumen general',   desc: 'KPIs consolidados de todos los módulos',    accentColor: '#111318', pdf: 'resumen',    excel: null       },
+    { id: 'inventario', titulo: 'Inventario',         desc: 'Catálogo de productos y niveles de stock',  accentColor: '#2563EB', pdf: 'inventario', excel: 'productos'},
+    { id: 'ventas',     titulo: 'Ventas',             desc: 'Facturas, clientes y rendimiento comercial', accentColor: '#16A34A', pdf: 'ventas',     excel: 'ventas'   },
+    { id: 'finanzas',   titulo: 'Finanzas',           desc: 'Transacciones, ingresos y egresos',          accentColor: '#D97706', pdf: null,         excel: 'finanzas' },
+    { id: 'empleados',  titulo: 'Empleados',          desc: 'Lista de empleados con datos completos',     accentColor: '#7C3AED', pdf: null,         excel: 'empleados'},
+    { id: 'nomina',     titulo: 'Nómina Detallada',   desc: 'Nómina, asistencia, incidencias y horas extras (4 hojas)', accentColor: '#DC2626', pdf: null, excel: 'nomina_detallada'}
+];
+
+// ── Exportar con autenticación ──
+function exportWithAuth(url, filename) {
+    const token = localStorage.getItem('erp_token');
+    fetch(url, { headers: { 'Authorization': `Bearer ${token}` } })
+        .then(r => { if (!r.ok) throw new Error(); return r.blob(); })
+        .then(blob => {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(a.href);
+        })
+        .catch(() => Utils.notify('Error al exportar el reporte', 'danger'));
+}
+
+// ── Aplicar control de roles ──
+function aplicarRoles(user) {
+    const rol    = user.rol;
+    const config = ROL_CONFIG[rol] || ROL_CONFIG['Vendedor'];
+
+    // Sidebar
+    document.getElementById('sidebar-rol-dot').style.background  = config.dot;
+    document.getElementById('sidebar-rol-text').textContent       = rol;
+
+    // Topbar badge
+    const badge = document.getElementById('user-rol');
+    badge.textContent       = rol;
+    badge.style.background  = config.dot;
+
+    // Ocultar nav-links
+    document.querySelectorAll('.nav-link[data-section]').forEach(link => {
+        const roles = (link.dataset.roles || '').split(',');
+        if (!roles.includes(rol)) link.classList.add('hidden');
+    });
+
+    // Ocultar botones de edición para Gerente
+    if (!config.puedeEditar) {
+        ['btn-nuevo-producto','btn-nuevo-cliente','btn-nueva-factura','btn-nueva-transaccion','btn-nueva-compra']
+            .forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+    }
+
+    construirReportes(config);
+}
+
+function construirReportes(config) {
+    document.getElementById('rep-banner-title').textContent = config.bannerTitle;
+    document.getElementById('rep-banner-desc').textContent  = config.bannerDesc;
+
+    const wrap = document.getElementById('reportes-contenido');
+    wrap.innerHTML = '';
+
+    const disponibles = MODULOS_REPORTES.filter(m => config.reportes.includes(m.id));
+
+    if (disponibles.length === 0) {
+        wrap.innerHTML = `
+            <div class="denied-section">
+                <div class="denied-icon">
+                    <svg><use href="#ic-lock"/></svg>
+                </div>
+                <h2>Sin acceso a reportes</h2>
+                <p style="font-size:0.82rem;max-width:320px">Tu rol no tiene permiso para exportar reportes. Contacta al administrador.</p>
+            </div>`;
+        return;
+    }
+
+    disponibles.forEach(m => {
+        const date  = new Date().toISOString().slice(0, 10);
+        let btns    = '';
+
+        if (m.pdf) {
+            btns += `<button class="btn-rep" onclick="exportWithAuth('${API_BASE}/reportes/pdf?tipo=${m.pdf}','reporte_${m.pdf}_${date}.pdf')">
+                        <svg><use href="#ic-pdf"/></svg> PDF
+                     </button>`;
+        }
+        if (m.excel) {
+            btns += `<button class="btn-rep" onclick="exportWithAuth('${API_BASE}/reportes/excel?tipo=${m.excel}','export_${m.excel}_${date}.xlsx')">
+                        <svg><use href="#ic-excel"/></svg> Excel
+                     </button>`;
+        }
+
+        const card = document.createElement('div');
+        card.className = 'reporte-modulo-card';
+        card.innerHTML = `
+            <div class="reporte-modulo-header">
+                <div class="mod-indicator" style="background:${m.accentColor}"></div>
+                <div>
+                    <div class="mod-title">${m.titulo}</div>
+                    <div class="mod-desc">${m.desc}</div>
+                </div>
+            </div>
+            <div class="reporte-modulo-body">${btns}</div>`;
+        wrap.appendChild(card);
+    });
+}
+
+// ════════════════════════════════════════════
+//  MÓDULOS INLINE
+// ════════════════════════════════════════════
+const Compras = {
+    proveedores: [],
+    async load() {
+        Utils.showLoading('proveedores-table');
+        try {
+            const [provRes, ordRes] = await Promise.all([API.getProveedores(), API.getOrdenesCompra()]);
+            this.proveedores = provRes?.data || [];
+            Utils.renderTable('proveedores-table', [
+                { key: 'nombre',   label: 'Nombre' },
+                { key: 'contacto', label: 'Contacto' },
+                { key: 'email',    label: 'Email' },
+                { key: 'telefono', label: 'Teléfono' }
+            ], this.proveedores);
+            Utils.renderTable('ordenes-table', [
+                { key: 'id',               label: '#' },
+                { key: 'fecha',            label: 'Fecha',     format: 'date' },
+                { key: 'proveedor_nombre', label: 'Proveedor' },
+                { key: 'total',            label: 'Total',     format: 'currency' },
+                { key: 'estado',           label: 'Estado',    format: 'badge' }
+            ], ordRes?.data || [],
+            (row) => row.estado === 'pendiente'
+                ? `<button class="btn btn-sm btn-primary" onclick="Compras.recibir(${row.id})">Recibir</button>`
+                : '');
+        } catch (e) { Utils.notify(e.message, 'danger'); }
+    },
+    async recibir(id) {
+        try {
+            await API.actualizarOrden(id, { estado: 'recibida' });
+            Utils.notify('Orden recibida correctamente');
+            this.load();
+        } catch (e) { Utils.notify(e.message, 'danger'); }
+    },
+    async showCrearCompra() {
+        document.getElementById('compra-form').reset();
+        
+        const provSelect = document.getElementById('compra-proveedor');
+        provSelect.innerHTML = this.proveedores.map(p =>
+            `<option value="${p.id}">${p.nombre}</option>`
+        ).join('');
+
+        const prodSelect = document.getElementById('compra-producto');
+        try {
+            const res = await API.getProductos();
+            const productos = res?.data || [];
+            prodSelect.innerHTML = productos.map(p =>
+                `<option value="${p.id}" data-costo="${p.precio_costo}">${p.nombre} (${p.codigo})</option>`
+            ).join('');
+
+            // Auto-populate cost when product is selected
+            const updateCosto = () => {
+                const selectedOpt = prodSelect.options[prodSelect.selectedIndex];
+                if (selectedOpt) {
+                    const costo = selectedOpt.dataset.costo || 0;
+                    document.getElementById('compra-form').precio_unitario.value = parseFloat(costo).toFixed(2);
+                }
+            };
+            prodSelect.onchange = updateCosto;
+            updateCosto();
+        } catch (error) {
+            Utils.notify('Error al cargar productos: ' + error.message, 'danger');
+        }
+
+        Utils.openModal('modal-compra');
+    },
+    async crearCompra(e) {
+        e.preventDefault();
+        const form = e.target;
+        const proveedorId = parseInt(form.proveedor_id.value);
+        const productoId = parseInt(form.producto_id.value);
+        const cantidad = parseInt(form.cantidad.value);
+        const precio = parseFloat(form.precio_unitario.value);
+
+        try {
+            await API.crearOrdenCompra({
+                proveedor_id: proveedorId,
+                fecha: form.fecha.value || Utils.today(),
+                items: [{ producto_id: productoId, cantidad, precio_unitario: precio }]
+            });
+            Utils.notify('Orden de compra creada exitosamente');
+            Utils.closeModal('modal-compra');
+            this.load();
+        } catch (error) {
+            Utils.notify(error.message, 'danger');
+        }
+    }
+};
+
+// ════════════════════════════════════════════
+//  NAVEGACIÓN
+// ════════════════════════════════════════════
+const sectionLoaders = {
+    dashboard:  () => Dashboard.load(),
+    inventario: () => { Inventario.load(); Inventario.loadAlertas(); },
+    ventas:     () => { Ventas.loadClientes(); Ventas.loadFacturas(); },
+    compras:    () => Compras.load(),
+    finanzas:   () => Finanzas.load(),
+    rrhh:       () => RRHH.load(),
+    usuarios:   () => Usuarios.load(),
+    auditoria:  () => Auditoria.load(),
+    reportes:   () => {}
+};
+
+const sectionTitles = {
+    dashboard:  'Dashboard',
+    inventario: 'Inventario',
+    ventas:     'Ventas',
+    compras:    'Compras',
+    finanzas:   'Finanzas',
+    rrhh:       'Recursos Humanos',
+    usuarios:   'Usuarios',
+    auditoria:  'Auditoría',
+    reportes:   'Reportes'
+};
+
+document.querySelectorAll('.nav-link[data-section]').forEach(link => {
+    link.addEventListener('click', () => {
+        const section = link.dataset.section;
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(`section-${section}`).classList.add('active');
+        document.getElementById('page-title').textContent = sectionTitles[section] || section;
+        if (sectionLoaders[section]) sectionLoaders[section]();
+    });
+});
+
+document.getElementById('menu-toggle')?.addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('open');
+});
+
+// ════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+    if (!Auth.requireAuth()) return;
+    const user = Auth.getUser();
+    if (!user) { Auth.logout(); return; }
+
+    const emailEl = document.getElementById('user-email');
+    if (emailEl) emailEl.textContent = user.email;
+
+    aplicarRoles(user);
+    Dashboard.load();
+});
+</script>
+</body>
+</html>

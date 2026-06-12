@@ -1,0 +1,12 @@
+<!-- navbar.html - Barra de navegación superior (template reutilizable) -->
+<header class="topbar">
+    <div style="display:flex;align-items:center;gap:1rem">
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+        <h1 id="page-title">Dashboard</h1>
+    </div>
+    <div class="user-info">
+        <span id="user-email"></span>
+        <span class="user-badge" id="user-rol"></span>
+        <button class="btn btn-sm btn-outline" onclick="Auth.logout()">Salir</button>
+    </div>
+</header>
