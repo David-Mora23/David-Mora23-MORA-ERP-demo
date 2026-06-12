@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+easyerp/backend/venv/
+easyerp/backend/erp.db
+.git
+.gitignore
